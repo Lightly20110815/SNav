@@ -36,12 +36,7 @@ const useStatusDataStore = defineStore("statusData", {
       this.mainBoxBig = value;
     },
   },
-  // 开启数据持久化
-  persist: {
-    key: "statusData",
-    storage: window.localStorage,
-    paths: ["mainBoxBig"],
-  },
+
 });
 
 export default useStatusDataStore;

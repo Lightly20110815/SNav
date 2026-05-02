@@ -300,6 +300,10 @@ const backgroundTypeArr = [
 // 主题类别
 const themeTypeOptions = [
   {
+    label: "跟随系统",
+    value: "auto",
+  },
+  {
     label: "浅色模式",
     value: "light",
   },

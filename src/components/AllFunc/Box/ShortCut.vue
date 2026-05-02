@@ -47,12 +47,20 @@
     </Transition>
     <div class="footer__btn-group">
       <div class="footer__btn" @click="downloadHtmlFile">
-        <SvgIcon iconName="icon-xiazai" />
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
         <span class="btnName">下载</span>
       </div>
       <div class="footer__btn" @click="clickFileDom">
         <input type="file" name="上传" id="shortCutUploadInput" />
-        <SvgIcon iconName="icon-shangchuan" />
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="17 8 12 3 7 8" />
+          <line x1="12" y1="3" x2="12" y2="15" />
+        </svg>
         <span class="btnName">上传</span>
       </div>
     </div>
@@ -510,14 +518,24 @@ function clickFileDom() {
     padding: 15px 0;
     padding-left: 20px;
     .footer__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 8px;
       width: 80px;
       height: 40px;
       background-color: var(--main-background-light-color);
-      line-height: 40px;
-      text-align: center;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
+      transition: background-color 0.3s;
+      .btn-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+      &:hover {
+        background-color: var(--main-background-hover-color);
+      }
     }
     #shortCutUploadInput {
       display: none;

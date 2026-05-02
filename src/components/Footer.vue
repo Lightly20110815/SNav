@@ -6,52 +6,20 @@
       <span class="anthor" @click="jumpTo(copyrightLink ?? 'https://github.com/imsyy/Snavigation')">
         {{ siteAnthor }}
       </span>
-      <span v-if="icp" class="icp" @click="jumpTo('https://beian.miit.gov.cn')">
-        {{ icp }}
-      </span>
-      <span class="about" @click="aboutSiteModal = true">关于</span>
     </div>
-    <!-- 关于 -->
-    <n-modal
-      preset="card"
-      :bordered="false"
-      v-model:show="aboutSiteModal"
-      transform-origin="center"
-    >
-      <div class="about-modal">
-        <div class="about">
-          <span class="name">{{ siteName }}</span>
-          <span class="version">v {{ packageJson.version }}</span>
-        </div>
-        <div class="desc">
-          <n-space class="link" justify="center">
-            <n-button strong secondary @click="jumpTo('https://github.com/imsyy/Snavigation')">
-              Github
-            </n-button>
-          </n-space>
-        </div>
-      </div>
-    </n-modal>
   </footer>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { setStore } from "@/stores";
-import { NModal, NButton, NSpace } from "naive-ui";
-import packageJson from "@/../package.json";
 
 const set = setStore();
 
 // 站点数据
-const icp = import.meta.env.VITE_ICP;
 const siteName = import.meta.env.VITE_SITE_TITLE;
 const siteAnthor = import.meta.env.VITE_SITE_ANTHOR;
 const copyrightLink = import.meta.env.VITE_SITE_COPYRIGHTLINK;
 const fullYear = new Date().getFullYear();
-
-// 关于弹窗数据
-const aboutSiteModal = ref(false);
 
 // 跳转
 const jumpTo = (url) => {
@@ -94,47 +62,12 @@ const jumpTo = (url) => {
         margin-right: 4px;
       }
     }
-    .icp {
-      &::before {
-        content: "|";
-        margin-right: 4px;
-      }
-    }
-    .about {
-      &::before {
-        content: "|";
-        margin-right: 4px;
-      }
-    }
-    .anthor,
-    .icp,
-    .about {
+    .anthor {
       cursor: pointer;
       &:hover {
         opacity: 1;
       }
     }
-  }
-}
-.about-modal {
-  margin-bottom: 10px;
-  .about {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    .name {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-    .version {
-      opacity: 0.6;
-      font-size: 16px;
-    }
-  }
-  .desc {
-    margin-top: 20px;
   }
 }
 </style>

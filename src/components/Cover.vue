@@ -39,7 +39,7 @@ const setBgUrl = () => {
       break;
     case 1: {
       const isMobile = window.innerWidth < 768;
-      bgUrl.value = `https://api.dujin.org/bing/${isMobile ? "m" : "1920"}.php`;
+      bgUrl.value = "https://bing.img.run/rand.php";
       break;
     }
     case 2:

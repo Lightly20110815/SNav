@@ -3,7 +3,7 @@
   <n-config-provider
     :locale="zhCN"
     :date-locale="dateZhCN"
-    :theme="darkTheme"
+    :theme="currentNaiveTheme"
     :theme-overrides="themeOverrides"
     abstract
     inline-theme-disabled
@@ -20,11 +20,12 @@
 </template>
 
 <script setup>
-import { defineComponent, h } from "vue";
+import { defineComponent, h, computed, onMounted, onBeforeUnmount, ref } from "vue";
 import {
   zhCN,
   dateZhCN,
   darkTheme,
+  lightTheme,
   NConfigProvider,
   NDialogProvider,
   NNotificationProvider,
@@ -33,6 +34,34 @@ import {
   useNotification,
   useMessage,
 } from "naive-ui";
+import { setStore } from "@/stores";
+
+const set = setStore();
+
+// 系统主题媒体查询
+const systemDarkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const systemIsDark = ref(systemDarkQuery.matches);
+
+// 获取 naive-ui 实际主题
+const currentNaiveTheme = computed(() => {
+  if (set.themeType === "auto") {
+    return systemIsDark.value ? darkTheme : lightTheme;
+  }
+  return set.themeType === "light" ? lightTheme : darkTheme;
+});
+
+// 监听系统主题变化
+const handleSystemThemeChange = (e) => {
+  systemIsDark.value = e.matches;
+};
+
+onMounted(() => {
+  systemDarkQuery.addEventListener("change", handleSystemThemeChange);
+});
+
+onBeforeUnmount(() => {
+  systemDarkQuery.removeEventListener("change", handleSystemThemeChange);
+});
 
 // 全局主题
 const themeOverrides = {

@@ -106,11 +106,29 @@ const mainPressKeyboard = (event) => {
   }
 };
 
+// 系统主题媒体查询
+const systemDarkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+// 获取实际应用的主题
+const getActualTheme = (themeType) => {
+  if (themeType === "auto") {
+    return systemDarkQuery.matches ? "dark" : "light";
+  }
+  return themeType === "light" ? "light" : "dark";
+};
+
 // 根据主题类别更改
 const changeThemeType = (val) => {
   const htmlElement = document.querySelector("html");
-  const themeType = val === "light" ? "light" : "dark";
-  htmlElement.setAttribute("theme", themeType);
+  const actualTheme = getActualTheme(val);
+  htmlElement.setAttribute("theme", actualTheme);
+};
+
+// 监听系统主题变化
+const handleSystemThemeChange = () => {
+  if (set.themeType === "auto") {
+    changeThemeType("auto");
+  }
 };
 
 // 监听颜色变化
@@ -121,6 +139,7 @@ watch(
 
 onMounted(() => {
   changeThemeType(set.themeType);
+  systemDarkQuery.addEventListener("change", handleSystemThemeChange);
 });
 </script>
 
