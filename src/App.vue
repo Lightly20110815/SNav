@@ -73,6 +73,12 @@ const set = setStore();
 const status = statusStore();
 const mainClickable = ref(false);
 
+// 鼠标右键
+const mainContextmenu = (event) => {
+  event.preventDefault();
+  status.setSiteStatus("box");
+};
+
 // 加载完成事件
 const loadComplete = () => {
   nextTick().then(() => {
