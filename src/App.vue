@@ -62,7 +62,6 @@
 <script setup>
 import { onMounted, nextTick, watch, ref } from "vue";
 import { statusStore, setStore } from "@/stores";
-import { getGreeting } from "@/utils/timeTools";
 import Provider from "@/components/Provider.vue";
 import Cover from "@/components/Cover.vue";
 import WeatherTime from "@/components/WeatherTime.vue";
@@ -74,23 +73,10 @@ const set = setStore();
 const status = statusStore();
 const mainClickable = ref(false);
 
-// 获取配置
-const welcomeText = import.meta.env.VITE_WELCOME_TEXT ?? "欢迎访问本站";
-
-// 鼠标右键
-const mainContextmenu = (event) => {
-  event.preventDefault();
-  status.setSiteStatus("box");
-};
-
 // 加载完成事件
 const loadComplete = () => {
   nextTick().then(() => {
     mainClickable.value = true;
-    $message.info(getGreeting() + "，" + welcomeText, {
-      showIcon: false,
-      duration: 3000,
-    });
   });
 };
 
